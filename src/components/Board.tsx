@@ -7,7 +7,9 @@ import { Button } from 'react-bootstrap'
 const Board = () => {
     const [squares, setSquares] = useState(Array(9).fill(null));
     const [isX, setIsX] = useState(true);
-
+    const winner = CalcWinner(squares);
+    let status;
+    
     /* ===== Render squares on the board ===== */
     const renderSquare = (ind: number) => {
         return (
@@ -16,7 +18,7 @@ const Board = () => {
     }
 
     /* ===== Get Winner ===== */
-    const CalcWinner = (squares: number[]) => {
+    function CalcWinner(squares: number[]) {
         for (let i = 0; i < winningPatterns.length; i++) {
             const [a, b, c] = winningPatterns[i];
             if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
@@ -26,8 +28,6 @@ const Board = () => {
         return null;
     }
 
-    const winner = CalcWinner(squares);
-    let status;
     if (winner) {
         status = `We have a Winner: ${winner}`
     } else {
